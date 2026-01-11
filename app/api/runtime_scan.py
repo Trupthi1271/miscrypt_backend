@@ -1,10 +1,10 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from app.core.log_analyzer import log_analyzer
 
 router = APIRouter()
 
 @router.get("/scan")
 def runtime_scan_status():
-    """GET endpoint for testing - returns basic status"""
     return {
         "module": "Runtime Log Analyzer",
         "status": "connected",
@@ -14,8 +14,17 @@ def runtime_scan_status():
 
 @router.post("/scan")
 def runtime_scan(log_source: str):
-    return {
-        "module": "Runtime Log Analyzer",
-        "status": "connected",
-        "alerts": []
-    }
+    try:
+        analyser = log_analyzer(log_source)
+        alerts = analyser.analyze_logs()
+        print(alerts)
+        return {
+            "module": "Runtime Log Analyzer",
+            "status": "connected",
+            "cnt": len(alerts),
+            "alerts": alerts
+        }
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="log file not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
