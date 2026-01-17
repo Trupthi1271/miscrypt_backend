@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from app.core.tls_scanner import full_tls_scan
 
 router = APIRouter()
 
@@ -6,6 +7,5 @@ router = APIRouter()
 def tls_scan(domain: str):
     return {
         "module": "TLS Scanner",
-        "status": "connected",
-        "tls_issues": []
+        "result": full_tls_scan(domain)
     }
