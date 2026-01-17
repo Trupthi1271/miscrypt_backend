@@ -1,11 +1,9 @@
 from fastapi import APIRouter
+from app.core.static_scanner import static_scan
 
-router = APIRouter()
+router = APIRouter(prefix="/static", tags=["Static Scanner"])
+
 
 @router.post("/scan")
-def static_scan(repo_url: str):
-    return {
-        "module": "Static Crypto Scanner",
-        "status": "connected",
-        "findings": []
-    }
+def scan_repo(repo_url: str):
+    return static_scan(repo_url)
