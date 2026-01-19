@@ -1,2 +1,4 @@
 __pycache__/
 *.pyc
+weak_tls_nginx/*.key
+weak_tls_nginx/*.crt
