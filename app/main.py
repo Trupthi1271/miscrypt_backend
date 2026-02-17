@@ -10,4 +10,8 @@ app.include_router(runtime_scan.router, tags=["Runtime Analysis"])
 
 @app.get("/")
 def root():
-    return {"status": "MisCrypt backend running"}
+    return {"status": "MisCrypt backend running", "version": "1.0.0"}
+
+@app.get("/api/health")
+def health_check():
+    return {"status": "healthy", "modules": ["static", "tls", "runtime"]}

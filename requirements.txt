@@ -3,3 +3,8 @@ uvicorn
 pydantic
 gitpython
 cryptography
+python-multipart
+aiofiles
+numpy
+pandas
+python-dateutil
