@@ -1,19 +1,23 @@
-# app/utils/constants.py
+# Cryptographic constants for detection
 
-# --- Weak crypto definitions ---
-WEAK_HASHES = ["MD5", "SHA1"]
-MIN_RSA_KEY_SIZE = 2048
-DISALLOWED_AES_MODES = ["ECB"]
-
-# --- Weak TLS definitions ---
-WEAK_TLS_VERSIONS = ["TLSv1", "TLSv1.1"]
-WEAK_CIPHERS = [
-    "RC4",
-    "DES",
-    "3DES"
+WEAK_ALGORITHMS = [
+    'DES', 'RC4', '3DES', 'ARCFOUR', 'BLOWFISH'
 ]
 
-# --- Risk scoring weights (used later) ---
-STATIC_WEIGHT = 3
-TLS_WEIGHT = 3
-RUNTIME_WEIGHT = 4
+WEAK_HASHES = [
+    'MD5', 'SHA1', 'MD4', 'MD2'
+]
+
+INSECURE_PATTERNS = {
+    'ECB_MODE': r'AES\.MODE_ECB|mode.*=.*ECB',
+    'HARDCODED_SECRET': r'(password|secret|api_key|token)\s*=\s*["\'][^"\']+["\']',
+    'WEAK_RSA': r'RSA.*1024|key_size.*=.*1024',
+    'INSECURE_RANDOM': r'random\.random\(|Math\.random\('
+}
+
+SEVERITY_LEVELS = {
+    'CRITICAL': 4,
+    'HIGH': 3,
+    'MEDIUM': 2,
+    'LOW': 1
+}
