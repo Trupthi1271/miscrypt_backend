@@ -12,6 +12,7 @@ DEFAULT_ORIGINS = [
     "http://localhost:5000",
     "http://localhost:5173",
     "http://127.0.0.1:5000",
+    "https://mis-crypt.vercel.app",
 ]
 origins = [o.strip() for o in ALLOWED_ORIGINS if o.strip()] or DEFAULT_ORIGINS
 
